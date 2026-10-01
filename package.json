@@ -1,0 +1,17 @@
+{
+  "name": "resilient-c2-sync-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Defensive offline-first distributed C2 resilience and data-trust simulator",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test --test-isolation=none",
+    "check": "node --check server.js && node --test --test-isolation=none"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

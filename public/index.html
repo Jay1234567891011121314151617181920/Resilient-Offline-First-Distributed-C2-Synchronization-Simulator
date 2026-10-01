@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Offline-first distributed C2 resilience and explainable data-trust simulator" />
+    <title>Resilient C2 Sync Lab</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <p class="eyebrow">DEFENSIVE RESILIENCE RESEARCH</p>
+        <h1>Resilient C2 <span>Sync Lab</span></h1>
+        <p class="subtitle">Observe what happens when a tactical node goes dark, works locally, and returns with a contested backlog.</p>
+      </div>
+      <div class="clock-panel">
+        <span>SIMULATION TIME</span>
+        <strong id="clock">—</strong>
+      </div>
+    </header>
+
+    <main>
+      <section class="controls panel">
+        <div>
+          <h2>20-minute partition scenario</h2>
+          <p>Disconnect Alpha, generate concurrent updates, then evaluate and synchronize its backlog.</p>
+        </div>
+        <div class="button-row">
+          <button id="demo" class="primary">Run complete scenario</button>
+          <button id="advance">Advance 5 min</button>
+          <button id="reset">Reset</button>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <div><span>01</span><h2>Network topology</h2></div>
+          <p>Each node retains a local operational view and durable outbound queue.</p>
+        </div>
+        <div id="nodes" class="node-grid"></div>
+      </section>
+
+      <section class="trust-layout">
+        <div>
+          <div class="section-heading">
+            <div><span>02</span><h2>Canonical records</h2></div>
+          </div>
+          <div class="panel table-wrap">
+            <table>
+              <thead><tr><th>Record</th><th>Type</th><th>Source</th><th>Version</th><th>Class</th></tr></thead>
+              <tbody id="records"></tbody>
+            </table>
+          </div>
+        </div>
+        <aside class="panel trust-model">
+          <p class="eyebrow">EXPLAINABLE TRUST MODEL</p>
+          <h2>Can this data be used?</h2>
+          <div class="trust-factors">
+            <div><strong>30</strong><span>Integrity</span></div>
+            <div><strong>20</strong><span>Provenance</span></div>
+            <div><strong>20</strong><span>Freshness</span></div>
+            <div><strong>15</strong><span>Classification</span></div>
+            <div><strong>10</strong><span>Schema</span></div>
+            <div><strong>05</strong><span>Corroboration</span></div>
+          </div>
+          <p>Hard gates prevent signatures, replay, classification, or schema failures from being hidden by a high score.</p>
+        </aside>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <div><span>03</span><h2>Audit stream</h2></div>
+          <p>Every trust and synchronization decision remains explainable.</p>
+        </div>
+        <div id="events" class="events panel"></div>
+      </section>
+    </main>
+
+    <footer>Research prototype • Synthetic data only • Human authority remains in control</footer>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
