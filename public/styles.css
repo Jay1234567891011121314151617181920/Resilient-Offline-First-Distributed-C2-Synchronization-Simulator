@@ -90,11 +90,25 @@ td { font-family: ui-monospace, monospace; font-size: .82rem; }
 .event.trust .kind { color: var(--green); }
 .event.reconnect .kind { color: var(--amber); }
 .empty { padding: 30px; color: var(--muted); }
+.integration-grid { display: grid; grid-template-columns: .9fr 1.4fr; gap: 14px; }
+.integration-card { padding: 24px; }
+.integration-card > p:not(.eyebrow) { color: var(--muted); }
+.pipeline { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 24px; flex-wrap: wrap; }
+.pipeline span { background: rgba(79,224,160,.08); border: 1px solid var(--line); padding: 10px 12px; font: .72rem ui-monospace, monospace; }
+.pipeline b { color: var(--green); }
+.integration-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+.assessment { padding: 16px; border: 1px solid var(--line); background: var(--panel); }
+.assessment strong, .assessment span { display: block; }
+.assessment strong { text-transform: uppercase; margin-bottom: 5px; }
+.assessment span { color: var(--muted); font-size: .8rem; }
+.assessment.accept { border-top: 3px solid var(--green); }
+.assessment.quarantine { border-top: 3px solid var(--amber); }
+.assessment.reject { border-top: 3px solid var(--red); }
 footer { color: var(--muted); padding: 25px 0 35px; border-top: 1px solid var(--line); font-size: .8rem; }
 
 @media (max-width: 850px) {
   header, .controls, .section-heading { align-items: flex-start; flex-direction: column; }
-  .node-grid, .trust-layout { grid-template-columns: 1fr; }
+  .node-grid, .trust-layout, .integration-grid, .integration-results { grid-template-columns: 1fr; }
   .clock-panel { align-self: stretch; }
   .event { grid-template-columns: 80px 1fr; }
   .event p { grid-column: 1 / -1; margin: 0; }

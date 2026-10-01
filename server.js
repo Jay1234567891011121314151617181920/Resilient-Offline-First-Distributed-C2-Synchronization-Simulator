@@ -3,11 +3,26 @@ import { readFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 import { C2Simulation } from "./src/simulation.js";
+import { IntegrationGateway } from "./src/integration-gateway.js";
 
 const ROOT = fileURLToPath(new URL(".", import.meta.url));
 const PUBLIC = join(ROOT, "public");
 const PORT = Number(process.env.PORT) || 3000;
 const simulation = new C2Simulation();
+const integrationProfile = Object.freeze({
+  mode: "vendor-neutral mock",
+  officialHexaForceConnection: false,
+  contractVersion: "1.0",
+  controls: [
+    "Canonical message envelope",
+    "Classification and releasability ABAC",
+    "Provenance preservation",
+    "Explainable trust assessment",
+    "Idempotent acknowledgement",
+    "Durable inbox/outbox reference implementation"
+  ],
+  nextDependency: "Authorized vendor API, schemas, credentials, and sandbox"
+});
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -42,10 +57,16 @@ async function routeApi(req, res, url) {
   if (req.method === "GET" && url.pathname === "/api/state") {
     return sendJson(res, 200, simulation.getState());
   }
+  if (req.method === "GET" && url.pathname === "/api/integration/profile") {
+    return sendJson(res, 200, integrationProfile);
+  }
   if (req.method !== "POST") return false;
   const body = await bodyJson(req);
   if (url.pathname === "/api/reset") return sendJson(res, 200, simulation.reset());
   if (url.pathname === "/api/demo") return sendJson(res, 200, simulation.runDemo());
+  if (url.pathname === "/api/integration/demo") {
+    return sendJson(res, 200, await new IntegrationGateway().runDemo());
+  }
   if (url.pathname === "/api/advance") return sendJson(res, 200, simulation.advance(body.minutes));
 
   const match = url.pathname.match(/^\/api\/nodes\/([a-z0-9-]+)\/(disconnect|reconnect|report)$/);

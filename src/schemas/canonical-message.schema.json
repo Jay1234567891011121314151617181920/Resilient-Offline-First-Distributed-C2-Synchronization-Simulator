@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/canonical-message-1.0.json",
+  "title": "Canonical C2 interoperability message",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "recordId", "source", "observedAt", "receivedAt", "classification",
+    "releasability", "schema", "version", "baseVersion", "provenance", "integrity", "payload"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "recordId": { "type": "string", "minLength": 1 },
+    "missionId": { "type": "string" },
+    "source": {
+      "type": "object",
+      "required": ["systemId", "systemType", "adapterId"],
+      "properties": {
+        "systemId": { "type": "string" },
+        "systemType": { "enum": ["legacy", "modern", "gateway", "synthetic"] },
+        "adapterId": { "type": "string" }
+      }
+    },
+    "observedAt": { "type": "string", "format": "date-time" },
+    "receivedAt": { "type": "string", "format": "date-time" },
+    "classification": { "enum": ["UNCLASSIFIED", "RESTRICTED", "CONFIDENTIAL", "SECRET"] },
+    "releasability": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "schema": {
+      "type": "object",
+      "required": ["name", "version"],
+      "properties": { "name": { "type": "string" }, "version": { "type": "string" } }
+    },
+    "version": { "type": "integer", "minimum": 1 },
+    "baseVersion": { "type": "integer", "minimum": 0 },
+    "provenance": { "type": "array", "items": { "type": "object" } },
+    "integrity": {
+      "type": "object",
+      "required": ["algorithm", "keyId", "signature", "verified"],
+      "properties": {
+        "algorithm": { "type": "string" },
+        "keyId": { "type": "string" },
+        "signature": { "type": "string" },
+        "verified": { "type": "boolean" }
+      }
+    },
+    "payload": { "type": "object" }
+  }
+}

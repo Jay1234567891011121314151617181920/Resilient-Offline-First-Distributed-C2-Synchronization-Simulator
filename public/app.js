@@ -57,6 +57,16 @@ async function refresh() { render(await api("/api/state")); }
 document.querySelector("#demo").addEventListener("click", async () => render(await api("/api/demo", {})));
 document.querySelector("#advance").addEventListener("click", async () => render(await api("/api/advance", { minutes: 5 })));
 document.querySelector("#reset").addEventListener("click", async () => render(await api("/api/reset", {})));
+document.querySelector("#integration-demo").addEventListener("click", async () => {
+  const output = document.querySelector("#integration-results");
+  const result = await api("/api/integration/demo", {});
+  output.innerHTML = result.results.map(({ message, assessment }) => `
+    <article class="assessment ${safe(assessment.decision)}">
+      <strong>${safe(assessment.decision)}</strong>
+      <span>${safe(message.source.systemType)} · ${safe(message.recordId)}</span>
+      <p>${safe(assessment.explanation)}</p>
+    </article>`).join("");
+});
 
 nodesEl.addEventListener("click", async (event) => {
   const button = event.target.closest("button[data-action]");

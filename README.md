@@ -14,6 +14,10 @@ The project uses synthetic, non-operational data. It does not control weapons, t
 - Explainable accept, quarantine, and reject decisions.
 - Interoperability metadata for legacy and modern sources.
 - A complete, repeatable 20-minute network-partition scenario.
+- A vendor-neutral external C2 adapter contract and clearly labelled mock HexaForce boundary.
+- A canonical interoperability envelope with classification, releasability, provenance, schema, and integrity metadata.
+- ABAC policy enforcement before AI-assisted trust scoring.
+- An atomic JSON inbox/outbox ledger reference for disconnected delivery semantics.
 
 ## Research question: can arriving data be used?
 
@@ -84,6 +88,14 @@ The in-memory adapters intentionally keep the example easy to inspect. A product
 - `POST /api/nodes/:id/disconnect`
 - `POST /api/nodes/:id/reconnect`
 - `POST /api/nodes/:id/report`
+- `GET /api/integration/profile`
+- `POST /api/integration/demo`
+
+## HexaForce integration concept
+
+This repository contains a mock adapter contract, not an official HexaForce integration. It deliberately avoids inventing proprietary endpoints or authentication mechanisms. The boundary can be replaced once authorized vendor API documentation, schemas, credentials, and a sandbox are available.
+
+For a technical review, see [CTO review brief](docs/CTO_BRIEF.md) and [integration guide](docs/INTEGRATION_GUIDE.md).
 
 ## Safety and limitations
 
